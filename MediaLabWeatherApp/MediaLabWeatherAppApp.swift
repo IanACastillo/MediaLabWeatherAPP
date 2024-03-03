@@ -11,7 +11,7 @@ import SwiftUI
 struct MediaLabWeatherAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WeatherView()
         }
     }
 }

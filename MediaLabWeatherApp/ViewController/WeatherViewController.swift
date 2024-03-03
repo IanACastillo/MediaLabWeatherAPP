@@ -65,15 +65,22 @@ struct WeatherCardView: View {
                 VStack(alignment: .leading) {
                     Text(weather.name)
                         .font(.headline)
+                        .foregroundColor(Color.blue) // Use blue for the city name
                     Text("Current: \(weather.main.temp, specifier: "%.1f")°")
                     Text("H: \(weather.main.temp_max, specifier: "%.1f")° L: \(weather.main.temp_min, specifier: "%.1f")°")
                     Text(weather.weather.first?.description ?? "")
+                        .foregroundColor(Color.orange) // Use orange for the weather description
                     Text("Wind: \(weather.wind.speed, specifier: "%.1f") m/s")
                 }
             }
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+        .background(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.orange.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomTrailing))
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(LinearGradient(gradient: Gradient(colors: [Color.blue, Color.orange]), startPoint: .top, endPoint: .bottom), lineWidth: 2)
+        )
+        .cornerRadius(10)
         .shadow(radius: 5)
     }
 }

@@ -13,7 +13,7 @@ struct WeatherView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // Search bar to add new cities
+                // Search bar and button
                 HStack {
                     TextField("Search for city", text: $viewModel.searchTerm, onCommit: {
                         viewModel.search()
@@ -21,43 +21,55 @@ struct WeatherView: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
 
+                    Spacer() // Pushes the button to the left
+
                     Button(action: {
                         viewModel.search()
                     }) {
                         Text("Search")
                     }
+                    .padding(.trailing, 20) // Adds padding to the trailing edge of the search button
                 }
 
-                // List to display weather cards
+                // List of weather cards
                 List(viewModel.weatherResponses, id: \.name) { weather in
                     WeatherCardView(weather: weather)
                 }
             }
             .navigationTitle("WeatherApp")
             .navigationBarItems(trailing: Button("Add City") {
-                // This button could trigger a modal or another view to add a new city
+                // Trigger a modal or another view to add a new city
             })
         }
     }
 }
 
-// A card view to display weather for a single city
 struct WeatherCardView: View {
     let weather: WeatherResponse
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text(weather.name)
-                .font(.headline)
             HStack {
-                Text("Current: \(weather.main.temp, specifier: "%.1f")°")
-                Spacer()
-                Text("H: \(weather.main.temp_max, specifier: "%.1f")° L: \(weather.main.temp_min, specifier: "%.1f")°")
-            }
-            Text(weather.weather.first?.description ?? "")
-            HStack {
-                Spacer()
-                Text("Wind: \(weather.wind.speed, specifier: "%.1f") m/s")
+                // Weather image
+                if let icon = weather.weather.first?.icon {
+                    let imageUrl = "https://openweathermap.org/img/wn/\(icon)@2x.png"
+                    AsyncImage(url: URL(string: imageUrl)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 50, height: 50)
+                }
+
+                // Weather details
+                VStack(alignment: .leading) {
+                    Text(weather.name)
+                        .font(.headline)
+                    Text("Current: \(weather.main.temp, specifier: "%.1f")°")
+                    Text("H: \(weather.main.temp_max, specifier: "%.1f")° L: \(weather.main.temp_min, specifier: "%.1f")°")
+                    Text(weather.weather.first?.description ?? "")
+                    Text("Wind: \(weather.wind.speed, specifier: "%.1f") m/s")
+                }
             }
         }
         .padding()

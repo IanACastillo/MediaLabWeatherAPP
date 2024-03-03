@@ -106,8 +106,6 @@
 				48260D252B9501D400A043F7 /* ViewController */,
 				48260D222B9501A600A043F7 /* ViewModel */,
 				48260D1F2B95013D00A043F7 /* Model */,
-				48260CF42B95012400A043F7 /* MediaLabWeatherAppApp.swift */,
-				48260CF62B95012400A043F7 /* ContentView.swift */,
 				48260CF82B95012500A043F7 /* Assets.xcassets */,
 				48260CFA2B95012500A043F7 /* MediaLabWeatherApp.entitlements */,
 				48260CFB2B95012500A043F7 /* Preview Content */,
@@ -160,6 +158,8 @@
 		48260D252B9501D400A043F7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				48260CF62B95012400A043F7 /* ContentView.swift */,
+				48260CF42B95012400A043F7 /* MediaLabWeatherAppApp.swift */,
 				48260D262B95020C00A043F7 /* WeatherViewController.swift */,
 			);
 			path = ViewController;
